@@ -45,7 +45,8 @@ def mining_pubs(tipo: str) -> pd.DataFrame :
     if(tipo == "DP"):#PMID y DP_year 
 
         zipcodes = re.findall(r'PMID-.(.+)', all_data) # Obtenemos el id de cada artículo
-        zipcodes1 = re.findall(r'DP  -.(.+)', all_data) # Obtenemos el año de publicación de cada artículo
+        zipcodes1 = re.findall(r'DP  -.(\d+)', all_data) # Obtenemos el año de publicación de cada artículo
+        zipcodes1 = [int(i) for i in zipcodes1]  # Convertimos a entero
         all_ = list(zip(zipcodes,zipcodes1))
         nom_colum = ['PMID','DP_year']
     else:
@@ -77,7 +78,6 @@ def mining_pubs(tipo: str) -> pd.DataFrame :
                     va_c = 0
             else:
                 va_c = va_c+1          
-
         all_ = list(zip(lista_1,lista_2))
         
     handle.close()
